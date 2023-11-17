@@ -1,3 +1,4 @@
+
 <div class="fixed z-10 inset-0 overflow-y-auto ease-out duration-400">
     <div class="flex justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
 
@@ -11,31 +12,20 @@
                 <form>
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class="mb-4">
-                            <h1 class="font-bold">Nuevo Proveedor</h1>
+                            <h1 class="font-bold">Nuevo Cliente</h1>
                         </div>
-                        <div class="grid grid-cols-2 gap-4">
-
-                        <!-- <div class="mb-4 ">
-                            <label for="estado" class="block text-gray-700 text-sm font-bold mb-2">Estado:</label>
-                            <select name="" id="estado">
-                                <option  selected value="Pendiente">Pendiente</option>
-                                <option value="Pagado">Pagado</option>
-                                <option value="Cancelado">Cancelado</option>
-                            </select>
-                        </div>
--->
-
                         <div class="mb-4">
                             <label for="nombres" class="block text-gray-700 text-sm font-bold mb-2">Nombres:</label>
                             <input type="text"   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="nombres" wire:model="nombres">
-                                @error('nombres') <span class="error text-red-500">{{ $message }}</span> @enderror
+                             id="nombres" wire:model="nombres">
+                             @error('nombres') <span class="error text-red-500">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="mb-4">
                             <label for="apellidos" class="block text-gray-700 text-sm font-bold mb-2">Apellidos:</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="apellidos" wire:model="apellidos">
+                             id="apellidos" wire:model="apellidos">
+
                         </div>
                         <div class="mb-4">
                             <label for="correo" class="block text-gray-700 text-sm font-bold mb-2">Correo:</label>
@@ -43,24 +33,17 @@
                             id="correo" wire:model="correo">
                         </div>
                         <div class="mb-4">
-                            <label for="direccion" class="block text-gray-700 text-sm font-bold mb-2">Direccion:</label>
-                            <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                            id="direccion" wire:model="direccion">
-                        </div>
-                        <div class="mb-4">
                             <label for="celular" class="block text-gray-700 text-sm font-bold mb-2">Celular:</label>
                             <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="celular" wire:model="celular">
+                            @error('celular') <span class="error text-red-500">{{ $message }}</span> @enderror
+
                         </div>
                         <div class="mb-4">
-                            <label for="cinit" class="block text-gray-700 text-sm font-bold mb-2">CI:</label>
+                            <label for="ci" class="block text-gray-700 text-sm font-bold mb-2">CI:</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="ci" wire:model="ci">
-                            @error('ci') <span class="error text-red-500">Campo obligatorio</span> @enderror
-                            <input type="text" hidden value="prov" wire:model="tipo">
                         </div>
-                        </div>
-
 
 
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Venta;
 use Illuminate\Support\Facades\DB;
 use App\Models\Venta;
-use App\Models\Cliente;
+use App\Models\Persona;
 use App\Models\Producto;
 use Carbon\Carbon;
 
@@ -22,7 +22,7 @@ class Reportevs extends Component
 
     public function render()
     {
-        $this->listaClientes = Cliente::all();
+        $this->listaClientes = Persona::all();
         $this->b =0;
         $this->listaVentas = Venta::select('ventas.id','ventas.estado','ventas.cliente_id','ventas.updated_at',
         'clientes.nombres','precioventa','cantidad',DB::raw('precioventa * cantidad as total'))

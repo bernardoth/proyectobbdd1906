@@ -1,7 +1,7 @@
 <div class="container  mx-auto my-auto">
     <div  class="grid grid-cols-8 grid-rows-7 py-2 gap-2 text-left mt-3">
         <div class="col-span-8 text-white bg-slate-600 py-2 px-2">
-                    Listado de Proveedores
+                    Listado de Clientes
         </div>
 
 
@@ -20,7 +20,7 @@
                                 class="float-right bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 my-3">
                                 Nuevo</button>
                             @if ($modal)
-                                @include('livewire.proveedor.crear')
+                                @include('livewire.cliente.crear')
                             @endif
         </div>
 
@@ -40,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach ($listaProv as $p)
+                        @foreach ($clientes as $p)
                             <tr>
                                 <td class="border px-4 py-2">{{ $p->id }}</td>
 

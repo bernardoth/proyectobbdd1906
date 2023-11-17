@@ -5,29 +5,29 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use Livewire\Component;
-use App\Models\Cliente;
+use App\Models\Persona;
 use App\Models\Producto;
-use App\Models\Venta;
+use App\Models\Movimiento;
 use App\Models\User;
 
 class Formulario extends Component
 {
 
-    public $ventaCliente,$selectClie,$clientes,$valor,$nombreClie,$apellidos,$cinit,$busqueda;
+    public $ventaCliente,$selectClie,$clientes,$valor,$nombreClie,$apellidos,$ci,$busqueda;
     public $modalClie= false,$modalProd = false,$experimento,$nuevoNumero,$stock;
     public $prod,$descripcion,$precioventa,$preciocompra,$cantidad,$subtotal,$idProd;
     public $datosCliente,$arreglo="",$estado='PROFORMA',$listaProd=[];
     public $idventa,$dVenta,$lprod,$v=[],$lv=[],$actualizar,$venta,$cliente,$producto,$cont;
 
     protected $listeners = ['addCliente','cerrarModal','addProducto','guardar','editaVenta'];
-    
+
 
     public function mount($valor)
     {   if ($valor!=0)
         {
             $this->actualizar = $valor;
-            $this->venta =Venta::find($valor);
-            $this->selectClie = $this->venta->cliente->id;
+            $this->venta =Movimiento::find($valor);
+            $this->selectClie = $this->venta->persona->id;
             $this->estado = $this->venta->estado;
 
 
@@ -38,13 +38,14 @@ class Formulario extends Component
             {
                 $idlista =  $p[$i]->id;
                 $deslista = $p[$i]->descripcion;
-                $preciolista =  $p[$i]->precio;//kkk
+                $preciolista =  $p[$i]->precioventa;//kkk
                 $cantidadlista =  $p[$i]->pivot->cantidad;
                 $v['id'] = $idlista;
                 $v['descripcion'] = $deslista;
                 $v['cantidad'] =$cantidadlista ;
                 $v['precio'] = $preciolista;
-                $v['subtotal'] = $cantidadlista * $preciolista;
+                //$v['subtotal'] = $cantidadlista * $preciolista;
+                $v['subtotal'] = number_format($cantidadlista * $preciolista,2,'.',' ');
                 array_push($this->lv,$v);
 
                 $v=[];
@@ -67,10 +68,10 @@ class Formulario extends Component
 
         if ($this->selectClie>0)
         {
-            $this->cliente = Cliente::find($this->selectClie);
+            $this->cliente = Persona::find($this->selectClie);
             $this->nombreClie = $this->cliente->nombres ;
             $this->apellidos = $this->cliente->apellidos;
-            $this->cinit = $this->cliente->ci;
+            $this->ci = $this->cliente->ci;
 
         }
 
@@ -124,12 +125,12 @@ class Formulario extends Component
     public function nuevoCliente()
     {
         if ($this->cinit!='') {
-            $this->cliente = Cliente::where('ci',$this->cinit)->get();
+            $this->cliente = Persona::where('ci',$this->cinit)->get();
             if (is_null($this->cliente)) {
-                $nClie = new Cliente();
+                $nClie = new Persona();
                 $nclie->nombres = $this->nombres;
                 $nclie->apellidos = $this->apellidos;
-                $nClie->cinit = $this->cinit;
+                $nClie->ci = $this->ci;
             }
 
         }
@@ -139,12 +140,12 @@ class Formulario extends Component
         //$this->validate();
         //$this->arreglo = $que;
         if (is_null($this->selectClie)) {
-            $newClie = new Cliente();
+            $newClie = new Persona();
             $newClie->nombres = $this->nombreClie;
             $newClie->apellidos = $this->apellidos;
-            $newClie->ci = $this->cinit;
+            $newClie->ci = $this->ci;
             $newClie->save();
-            $c = Cliente::where('ci',$this->cinit)->get();
+            $c = Persona::where('ci',$this->cinit)->get();
             $this->selectClie = $newClie->id;
         }
         /*
@@ -166,13 +167,13 @@ class Formulario extends Component
 
         switch ($this->estado) {
             case 'PEDIDO':
-                $num = Venta::where('estado','=','PEDIDO')->count();
+                $num = Movimiento::where('estado','=','PEDIDO')->count();
                 break;
             case 'PROFORMA':
-                $num = Venta::where('estado','=','PROFORMA')->count();
+                $num = Movimiento::where('estado','=','PROFORMA')->count();
                 break;
             case 'CANCELADO':
-                $num = Venta::where('estado','=','CANCELADO')->count();
+                $num = Movimiento::where('estado','=','CANCELADO')->count();
                 break;
 
 
@@ -182,11 +183,11 @@ class Formulario extends Component
         }
 
 
-        $v = Venta::updateOrCreate(
+        $v = Movimiento::updateOrCreate(
             ['id'=>$this->idventa],
             ['numeroDoc'=>$num+1,
             'estado'=>$this->estado,
-            'cliente_id'=>$this->selectClie,
+            'persona_id'=>$this->selectClie,
             'user_id'=>Auth::user()->id]);
 
             $m = JSON_decode($this->arreglo);

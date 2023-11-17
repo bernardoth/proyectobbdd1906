@@ -8,14 +8,14 @@
 
                     <div class="col-span-3 mt-6 text-gray-300">
                         <select wire:model ="estado"class="bg-green-600 border-white" name="" id="estado">
-                            <option  selected value="PEDIDO">NOTA DE COMPRA</option>
+                            <option  selected value="COMPRA">NOTA DE COMPRA</option>
 
                             <option value="CANCELADO">CANCELADO</option>
                         </select>
                     </div>
-                    <div class="col-span-2 text-white bg-green-20">
+                    <div class="col-span-2 text-white">
                         <label for="">Numero de Documento: </label>
-                        <input wire:model="numeroDoc" type="text" name="numeroDoc" id="numeroDoc" >
+                        <input class="text-gray-500 bg-green-200" wire:model="numeroDoc" type="text" name="numeroDoc" id="numeroDoc" >
                     </div>
 
                 <div class="col-span-8 text-white bg-slate-700 px-3 py-3">
@@ -40,9 +40,9 @@
                 <div class="col-span-2 text-white">
 
                     <label class="block" for="cinit">CI/NIT: / </label>
-                    <input wire:model="cinit"
+                    <input wire:model="ci"
                     class="bg-gray-500 mx-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    type="text" name="cinit" id="cinit">
+                    type="text" name="ci" id="ci">
                 </div>
 
                 <div class="col-span-2 text-white self-center">
@@ -76,7 +76,7 @@
                         class="w-full bg-gray-500" type="number"  min=1 max=9999999 name="cant" id="cantidad">
                     </div>
                     <div class="cols-span-1 text-gray-300">
-                        <label class="block " for="precio">Precio:  </label>
+                        <label class="block " for="preciocompra">Precio:  </label>
                         <input wire:model="preciocompra"
                         class="w-full bg-gray-500" type="number" readonly name="preciocompra" id="preciocompra">
                     </div>
@@ -129,7 +129,7 @@
                                 <td x-text="row.item"></td>
                                 <td x-text="row.descripcion"></td>
                                 <td x-text="row.cantidad"></td>
-                                <td x-text="row.precio"></td>
+                                <td x-text="row.preciocompra"></td>
                                 <td x-text="row.subtotal"></td>
                                 <td>
                                 <button  class="bg-red-500 hover:bg-green-400 px-2 py-2  display:flex align-items: center">
@@ -205,7 +205,7 @@
             limpiar:function(){
                 document.querySelector('#descripcion').value = '';
                 document.querySelector('#cantidad').value = '';
-                document.querySelector('#preciocompra').value = '';
+                document.querySelector('#precio').value = '';
                 document.querySelector('#subtotal').value = '';
             },
             agregar:function(){
@@ -215,7 +215,7 @@
                 lista.id = document.querySelector('#id').value,
                 lista.descripcion = document.querySelector('#descripcion').value;
                 lista.cantidad = document.querySelector('#cantidad').value;
-                lista.precio = document.querySelector('#preciocompra').value;
+                lista.preciocompra = document.querySelector('#preciocompra').value;
                 lista.subtotal = document.querySelector('#subtotal').value;
                 this.prod.push(lista);
 
@@ -288,7 +288,7 @@
                     else
                     {
                         this.datos();
-                        //console.log(this.prod);
+                        console.log(this.prod);
                     }
 
         },
@@ -297,7 +297,7 @@
             this.nuevo = JSON.stringify(this.prod);
             console.log(this.nuevo);
             Livewire.emit('guardarCompra');
-            window.location.href="http://proyecto1905.me/compra/compras";
+            window.location.href="http://proyectobbdd1906.me/compra/compras";
 
 
         }

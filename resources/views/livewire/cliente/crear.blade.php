@@ -44,6 +44,8 @@
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="ci" wire:model="ci">
                         </div>
+                        <input type="text" hidden value="clie"
+                            id="tipo" wire:model="tipo">
 
 
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Compra;
 
 use Livewire\Component;
-use App\Models\Compra;
+use App\Models\Movimiento;
 use Carbon\Carbon;
 
 class Compras extends Component
@@ -18,9 +18,10 @@ class Compras extends Component
 
     public function render()
     {
-        $this->listaCompras = Compra::select(
-            'compras.id','compras.numeroDoc','compras.estado','compras.updated_at','proveedors.nombres','proveedors.apellidos')
-            ->join('proveedors','compras.proveedor_id','=','proveedors.id')->
+        $this->listaCompras = Movimiento::select(
+            'movimientos.id','movimientos.numeroDoc','movimientos.estado',
+            'movimientos.updated_at','personas.nombres','personas.apellidos')
+            ->join('personas','movimientos.persona_id','=','personas.id')->
             get();
         return view('livewire.compra.compras');
     }
@@ -35,7 +36,7 @@ class Compras extends Component
     }
     public function eliminar($id)
     {
-        $c=Compra::find($id);
+        $c=Movimiento::find($id);
         $c->productos()->detach();
 
         $c->delete();

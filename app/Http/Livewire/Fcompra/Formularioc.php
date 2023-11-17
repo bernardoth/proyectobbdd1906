@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use Livewire\Component;
-use App\Models\Compra;
-use App\Models\Proveedor;
+use App\Models\Movimiento;
+use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\User;
 
 class Formularioc extends Component
 {
-    public $modProv,$nombreProv,$apellidos,$cinit,$valor,$modalProv,$modalProd,$idprod,$proveedor,$idProd;
+    public $modProv,$nombreProv,$apellidos,$ci,$valor,$modalProv,$modalProd,$idprod,$proveedor,$idProd;
     public $selectProv,$idcompra,$listaProd=[],$precioventa,$preciocompra,$cantidad,$producto,$descripcion,$subtotal;
     public $actualizar = 0,$compra,$arreglo="primero",$v=[],$lv=[],$estado='PEDIDO',$numeroDoc;
     protected $listeners = ['cerrarModal','addProv','addProducto','cerrarModal','guardarCompra','editaCompra'];
@@ -22,8 +22,9 @@ class Formularioc extends Component
         if ($valor!=0)
         {
             $this->actualizar = $valor;
-            $this->compra = Compra::find($valor);
-            $this->selectProv = $this->compra->proveedor->id;
+            $this->compra = Movimiento::find($valor);
+            $this->selectProv = $this->compra->persona->id;
+            $this->numeroDoc = $this->compra->numeroDoc;
 
             $p=$this->compra->productos;
 
@@ -31,13 +32,14 @@ class Formularioc extends Component
             {
                 $idlista =  $p[$i]->producto_id;
                 $deslista = $p[$i]->descripcion;
-                $preciolista =  $p[$i]->precio;
+                $preciolista =  $p[$i]->preciocompra;
                 $cantidadlista =  $p[$i]->pivot->cantidad;
                 $v['id'] = $idlista;
                 $v['descripcion'] = $deslista;
                 $v['cantidad'] =$cantidadlista ;
                 $v['preciocompra'] = $preciolista;
-                $v['subtotal'] = $cantidadlista * $preciolista;
+                //$v['subtotal'] = $cantidadlista * $preciolista;
+                $v['subtotal'] =number_format($cantidadlista * $preciolista,2,'.',' ');
                 array_push($this->lv,$v);
 
                 $v=[];
@@ -54,10 +56,10 @@ class Formularioc extends Component
     {
         if($this->selectProv>0)
         {
-            $this->proveedor = Proveedor::find($this->selectProv);
+            $this->proveedor = Persona::find($this->selectProv);
             $this->nombreProv = $this->proveedor->nombres;
             $this->apellidos = $this->proveedor->apellidos;
-            $this->cinit = $this->proveedor->cinit;
+            $this->ci = $this->proveedor->ci;
 
 
         }
@@ -90,13 +92,13 @@ class Formularioc extends Component
 
     public function nuevoProveedor()
     {
-        if ($this->cinit!='') {
-            $this->proveedor = Proveedor::where('cinit',$this->cinit)->get();
+        if ($this->ci!='') {
+            $this->proveedor = Persona::where('ci',$this->ci)->get();
             if (is_null($this->proveedor)) {
-                $nProv = new Proveedor();
+                $nProv = new Persona();
                 $nProv->nombres = $this->nombres;
                 $nProv->apellidos = $this->apellidos;
-                $nProv->cinit = $this->cinit;
+                $nProv->ci = $this->ci;
             }
 
         }
@@ -118,12 +120,12 @@ class Formularioc extends Component
     {
         //$this->arreglo = $que;
         if (is_null($this->selectProv)) {
-            $nProv = new Proveedor();
+            $nProv = new Persona();
             $nProv->nombres = $this->nombreProv;
             $nProv->apellidos = $this->apellidos;
-            $nProv->cinit = $this->cinit;
+            $nProv->ci = $this->ci;
             $nProv->save();
-            $c = Proveedor::where('cinit',$this->cinit)->get();
+            $c = Persona::where('ci',$this->ci)->get();
             $this->selectProv = $nProv->id;
         }
 
@@ -134,11 +136,11 @@ class Formularioc extends Component
         else {
             $this->idcompra = 0;
         }
-        $v = Compra::updateOrCreate(
+        $v = Movimiento::updateOrCreate(
             ['id'=>$this->idcompra],
             ['numeroDoc' => $this->numeroDoc,
             'estado'=>$this->estado,
-            'proveedor_id'=>$this->selectProv,
+            'persona_id'=>$this->selectProv,
             'user_id'=>Auth::user()->id]);
 
             $m = JSON_decode($this->arreglo);

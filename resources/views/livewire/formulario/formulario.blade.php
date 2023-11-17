@@ -37,9 +37,9 @@
                 <div class="col-span-2 text-white">
 
                     <label class="block" for="cinit">CI/NIT: / </label>
-                    <input wire:model="cinit"
+                    <input wire:model="ci"
                     class="bg-gray-500 mx-auto border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
-                    type="text" name="cinit" id="cinit">
+                    type="text" name="ci" id="ci">
 
                 </div>
 
@@ -300,7 +300,7 @@
                     else
                     {
                         this.datos();
-                        //console.log(this.prod);
+                        console.log(this.prod);
                     }
                 },
 
@@ -329,7 +329,7 @@
             let estado='';
             let ape='';
             nombre = document.querySelector('#nomclie').value;
-            cinit = document.querySelector('#cinit').value;
+            cinit = document.querySelector('#ci').value;
             estado = document.querySelector('#estado').value;
             ape = document.querySelector('#apellidos').value;
             console.log(nombre);
@@ -357,7 +357,7 @@
             //var miestado = document.querySelector('#estado').value;
 
 
-            window.location.href="http://proyecto1905.me/venta/ventas";
+            window.location.href="http://proyectobbdd1906.me/venta/ventas";
 
 
 

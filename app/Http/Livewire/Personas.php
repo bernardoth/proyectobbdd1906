@@ -3,12 +3,13 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Cliente;
+//use App\Models\Cliente;
 use App\Models\Persona;
+use Faker\Provider\ar_EG\Person;
 
-class Clientes extends Component
+class Personas extends Component
 {
-    public $clientes,$search,$nombres,$apellidos,$correo,$celular,$ci,$idclie;
+    public $clientes,$search,$nombres,$apellidos,$correo,$celular,$ci,$idclie,$tipo;
     public $modal = 0;
 
     protected $rules=[
@@ -23,7 +24,8 @@ class Clientes extends Component
     {
         $this->clientes = Persona::where('nombres','like','%'.$this->search.'%')
         ->where('tipo','=','clie')
-        ->where('ci','like','%'.$this->search.'%')->get();
+        //->orwhere('tipo','=','clieprov')
+        ->orWhere('ci','like','%'.$this->search.'%')->get();
         return view('livewire.cliente.clientes');
     }
 
@@ -42,7 +44,8 @@ class Clientes extends Component
             'apellidos'=>$this->apellidos,
             'correo'=>$this->correo,
             'celular'=>$this->celular,
-            'ci'=>$this->ci
+            'ci'=>$this->ci,
+            'tipo'=>'clie'
         ]);
         session()->flash(
             'message',
@@ -60,6 +63,7 @@ class Clientes extends Component
         $this->correo = $cliente->correo;
         $this->celular = $cliente->celular;
         $this->ci = $cliente->ci;
+        $this->tipo = 'clie';
         $this->abrirModal();
     }
 

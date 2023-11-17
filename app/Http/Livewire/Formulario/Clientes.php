@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Formulario;
 
 use Livewire\Component;
-use App\Models\Cliente;
+use App\Models\Persona;
 
 class Clientes extends Component
 {
@@ -11,8 +11,9 @@ class Clientes extends Component
 
     public function render()
     {
-        $this->clientes = Cliente::where('nombres','like','%'.$this->search.'%')->
-        orWhere('ci','like','%'.$this->search.'%')->get();
+        $this->clientes = Persona::where('nombres','like','%'.$this->search.'%')
+        ->where('tipo','=','clie')
+        ->Where('ci','like','%'.$this->search.'%')->get();
         return view('livewire.formulario.clientes');
     }
 

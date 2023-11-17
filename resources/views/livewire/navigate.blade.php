@@ -38,7 +38,7 @@
                 <div class="flex flex-shrink-0 items-center">
 
 
-                    <img class="block" src="imagenes/textohammer.png" alt="" width="150" height="40">
+                    <img class="block" src="/imagenes/textohammer.png" alt="" width="150" height="40">
 
 
                 </div>

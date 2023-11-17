@@ -4,9 +4,9 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Cliente;
+use App\Models\Persona;
 
-class ClienteSeeder extends Seeder
+class PersonaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class ClienteSeeder extends Seeder
     public function run()
     {
         //
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Jenni Faviola',
             'apellidos'=>'Cespedes Cuevas',
             'correo'=>'saveucfanni@gmail.com',
@@ -25,7 +25,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Bernardo Antonio ',
             'apellidos'=>'Choque  Miranda',
             'correo'=>'daidamon.theos@gmail.com',
@@ -34,7 +34,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Jair Do Santos ',
             'apellidos'=>'Santalla Mayta',
             'correo'=>'jairsantalla123@gmail.com',
@@ -43,7 +43,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'David Diego ',
             'apellidos'=>'Caceres  Lecoña ',
             'correo'=>'35ddcl@gmail.com',
@@ -52,7 +52,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Madizon Vania',
             'apellidos'=>'Pendones Cortez',
             'correo'=>'madizonpendones9@gmail.com',
@@ -61,7 +61,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Juana Gabriela ',
             'apellidos'=>'Zenteno  Acha',
             'correo'=>'gabyzenteno51@gmail.com',
@@ -70,7 +70,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Gustavo ',
             'apellidos'=>'Tito Flores',
             'correo'=>'gdtito@umsa.bo',
@@ -79,7 +79,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'brandon Alexis ',
             'apellidos'=>'Padilla  bautista ',
             'correo'=>'balexispb@gmail.com',
@@ -88,7 +88,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Luis David ',
             'apellidos'=>'Torrez  Rojas',
             'correo'=>'T26altair@gmail.com',
@@ -97,7 +97,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Ivan Teodoro',
             'apellidos'=>'Blanco Huayhua',
             'correo'=>'yoelblanco578@gmail.com',
@@ -106,7 +106,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'JAVIER HENRY',
             'apellidos'=>'QUISPE PINTO',
             'correo'=>'javihen200990@gmail.com',
@@ -115,7 +115,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Jonnathan Elias ',
             'apellidos'=>'Lecoña  Coaquira ',
             'correo'=>'jhonnatanlecona17@gmail.com',
@@ -124,7 +124,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Jonnathan Elias ',
             'apellidos'=>'Lecoña  Coaquira ',
             'correo'=>'jhonnatanlecona17@gmail.com',
@@ -133,7 +133,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Erick Rodrigo ',
             'apellidos'=>'Chavez  Escobar ',
             'correo'=>'chavezescobare@gmail.com',
@@ -142,7 +142,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'DEYMAR MAURICIO',
             'apellidos'=>'CHOQUE  TICONA',
             'correo'=>'deymau89@gmail.com',
@@ -151,7 +151,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Roger Billy',
             'apellidos'=>'Medina  Cardenas',
             'correo'=>'rogerbillymedinacardenas@gmail.com',
@@ -160,7 +160,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Willy',
             'apellidos'=>'Mendoza  Arias',
             'correo'=>'willymendozaarias@gmail.com',
@@ -169,7 +169,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Alejandra Esperanza ',
             'apellidos'=>'Queso  Jamachi ',
             'correo'=>'alejandraqueso54@gmail.com',
@@ -178,7 +178,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Valeria ',
             'apellidos'=>'Condori  Condori',
             'correo'=>'valec1596@gmail.com',
@@ -187,7 +187,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'José Carlo ',
             'apellidos'=>'Pozo Quecaña',
             'correo'=>'Josecarlopozoquecana@gmail.com',
@@ -196,7 +196,7 @@ class ClienteSeeder extends Seeder
         ]);
 
 
-        Cliente::create([
+        Persona::create([
             'nombres' => 'Dania',
             'apellidos'=>'Condori  Martínez ',
             'correo'=>'condirimartinezdania@gmail.com',

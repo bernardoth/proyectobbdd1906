@@ -3,22 +3,23 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use App\Models\Proveedor;
+use App\Models\Persona;
 
 class Proveedors extends Component
 {
-    public $listaProv,$search,$modal=0,$numeroDoc,$estado,$nombres,$apellidos,$correo,$direccion,$cinit;
-    public $celular,$idprov;
+    public $listaProv,$search,$modal=0,$numeroDoc,$estado,$nombres,$apellidos,$correo,$direccion,$ci;
+    public $celular,$idprov,$tipo='prov';
 
     protected $rules=[
         'nombres'=>'required|min:2',
-        'cinit'=>'required'
+
     ];
 
     public function render()
     {
-        $this->listaProv = Proveedor::where('nombres','like','%'.$this->search.'%')->
-        orWhere('cinit','like','%'.$this->search.'%')->get();
+        $this->listaProv = Persona::where('nombres','like','%'.$this->search.'%')
+        ->where('tipo','=','prov')
+        ->Where('ci','like','%'.$this->search.'%')->get();
         return view('livewire.proveedor.proveedors');
     }
     public function crear()
@@ -31,7 +32,7 @@ class Proveedors extends Component
     public function guardar()
     {
         $this->validate();
-        Proveedor::updateOrCreate(['id'=>$this->idprov],
+        Persona::updateOrCreate(['id'=>$this->idprov],
         [
 
             'estado'=>$this->estado,
@@ -40,7 +41,8 @@ class Proveedors extends Component
             'correo'=>$this->correo,
             'direccion'=>$this->direccion,
             'celular'=>$this->celular,
-            'cinit'=>$this->cinit
+            'ci'=>$this->ci,
+            'tipo'=>$this->tipo
         ]);
         session()->flash(
             'message',
@@ -51,7 +53,7 @@ class Proveedors extends Component
     }
     public function borrar($id)
     {
-        Proveedor::find($id)->delete();
+        Persona::find($id)->delete();
         session()->flash('message', 'Registro eliminado correctamente');
     }
 
@@ -66,12 +68,12 @@ class Proveedors extends Component
         $this->correo = '';
         $this->direccion = '';
         $this->celular = '';
-        $this->cinit = '';
+        $this->ci = '';
     }
 
     public function editar($id)
     {
-        $prov = Proveedor::findOrFail($id);
+        $prov = Persona::findOrFail($id);
         $this->idprov = $id;
 
         $this->estado = $prov->estado;
@@ -80,7 +82,8 @@ class Proveedors extends Component
         $this->correo = $prov->correo;
         $this->direccion = $prov->direccion;
         $this->celular = $prov->celular;
-        $this->cinit = $prov->cinit;
+        $this->ci = $prov->ci;
+        $this->tipo ='prov';
         $this->abrirModal();
     }
 

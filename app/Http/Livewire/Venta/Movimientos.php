@@ -4,13 +4,15 @@ namespace App\Http\Livewire\Venta;
 use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 use Livewire\Component;
+//use App\Models\Cliente;
 use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\User;
+//use App\Models\Venta;
 use App\Models\Movimiento;
 use Carbon\Carbon;
 
-class Ventas extends Component
+class Movimientos extends Component
 {
     use WithPagination;
     public $listaVentas,$listaClientes,$nuevaVenta,$usuario;
@@ -26,12 +28,11 @@ class Ventas extends Component
         $this->listaClientes = Persona::all();
         //$this->listaVentas = Venta::where('cliente_id','like','%'.$this->search.'%')->get();
         //$this->fecha = '2023-01-01';
-        $this->listaVentas = Movimiento::select('movimientos.id','movimientos.numeroDoc',
-        'movimientos.estado','movimientos.persona_id','movimientos.updated_at','personas.nombres')
-        ->join('personas','movimientos.persona_id','=','personas.id')
+        $this->listaVentas = Movimiento::select('ventas.id','ventas.numeroDoc','ventas.estado','ventas.cliente_id','ventas.updated_at','clientes.nombres')
+        ->join('clientes','ventas.cliente_id','=','clientes.id')
         ->where('nombres','like','%'.$this->search.'%')
-        ->whereDate('movimientos.updated_at','>=',$this->fecha)
-        ->where('movimientos.estado','=',$this->tipo)
+        ->whereDate('ventas.updated_at','>=',$this->fecha)
+        ->where('ventas.estado','=',$this->tipo)
         ->orderby('id','desc')->get();
 
 

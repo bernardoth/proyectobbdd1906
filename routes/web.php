@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Categorias;
 use App\Http\Livewire\Clientes;
+use App\Http\Livewire\Personas;
 use App\Http\Livewire\Productos;
 use App\Http\Livewire\Proveedors;
 use App\Http\Livewire\Venta\Ventas;
@@ -49,8 +50,11 @@ Route::middleware([
 
     Route::get('/categoria/categorias',Categorias::class);
     Route::get('/cliente/clientes',Clientes::class);
+    //Route::get('/personaclie/clientes',Personas::class);
     Route::get('/producto/productos',Productos::class);
     Route::get('/proveedor/proveedors',Proveedors::class);
+    //Route::get('/personaprov/proveedors',Personas::class);
+
     Route::get('/venta/ventas',Ventas::class);
     Route::get('/venta/reportevs',Reportevs::class);
 

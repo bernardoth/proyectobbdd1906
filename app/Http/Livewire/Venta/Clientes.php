@@ -3,15 +3,15 @@
 namespace App\Http\Livewire\Venta;
 
 use Livewire\Component;
-use App\Models\Cliente;
+use App\Models\Persona;
 
 
 class Clientes extends Component
 {
-    public $busqueda,$modalClie,$selecClie;
+    public $busqueda,$modalClie,$selecClie,$clientes;
     public function render()
     {
-        $this->clientes = Cliente::where('nombres','like','%'.$this->busqueda.'%')->
+        $this->clientes = Persona::where('nombres','like','%'.$this->busqueda.'%')->
         orWhere('ci','like','%'.$this->busqueda.'%')->get();
         return view('livewire.venta.clientes');
     }
