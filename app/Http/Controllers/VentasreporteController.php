@@ -6,8 +6,8 @@ use App\Http\Controllers\myPdf as ControllersMyPdf;
 use Illuminate\Support\Facades\DB;
 use Codedge\Fpdf\Fpdf\FPDF;
 use Illuminate\Support\Carbon;
-use App\Models\Venta;
-use App\Models\Cliente;
+use App\Models\Movimiento;
+use App\Models\Persona;
 use Illuminate\Http\Request;
 
 class VentasreporteController extends Controller
@@ -63,14 +63,16 @@ class VentasreporteController extends Controller
 
     public function consulta($a,$b)
     {
-        $lista = Venta::select('ventas.id','ventas.estado','ventas.cliente_id','ventas.updated_at',
-        'clientes.nombres','precioventa','cantidad',DB::raw('precioventa *cantidad as total'))
-        ->join('clientes','ventas.cliente_id','=','clientes.id')
-        ->join('producto_venta','ventas.id','=','producto_venta.venta_id')
-        ->where('ventas.estado','=','PEDIDO')
-        ->whereDate('ventas.updated_at','>=',$a)
-        ->whereDate('ventas.updated_at','<=',$b)
-        ->groupBy('ventas.id')->get();
+        $lista = Movimiento::select('movimientos.id','movimientos.estado','movimientos.persona_id','movimientos.updated_at',
+        'personas.nombres','precioventa','cantidad',DB::raw('precioventa * cantidad as total'))
+        ->join('personas','movimientos.persona_id','=','personas.id')
+        //->where('nombres','like','%'.$this->search.'%')
+        ->join('movimiento_producto','movimientos.id','=','movimiento_producto.movimiento_id')
+        ->whereDate('movimientos.updated_at','>=',$a)
+        ->whereDate('movimientos.updated_at','<=',$b)
+        ->where('estado','=','PEDIDO')
+        //->whereBetween('ventas.updated_at',[$this->fechainicio,$this->fechafin])
+        ->groupBy('movimientos.id')->get();
         return $lista;
     }
     public function resetFormat()

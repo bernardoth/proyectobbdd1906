@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Codedge\Fpdf\Fpdf\FPDF;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\Models\Venta;
-use App\Models\Cliente;
+use App\Models\Movimiento;
+use App\Models\Persona;
 
 class ExportController extends Controller
 {
@@ -16,11 +16,12 @@ class ExportController extends Controller
     public function miReporte($id)
     {   $fecha=  Carbon::now();
         $fecha2 = $fecha->format('d-m-Y');
-        $venta=Venta::find($id);
-        $cliente = Cliente::find($venta->cliente_id);
+        $venta=Movimiento::find($id);
+        $cliente = Persona::find($venta->persona_id);
         $v=$venta->estado;
         $prodjson = $venta->productos;
         $prod = json_decode($prodjson);
+        //dd($cliente);
         $this->pdf = new myPdf();
         $this->pdf->AddPage('P','Letter');
         $this->pdf->AddFont('Helvetica','','helvetica.php');

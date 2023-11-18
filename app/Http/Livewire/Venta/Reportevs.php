@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Venta;
 use Illuminate\Support\Facades\DB;
-use App\Models\Venta;
+use App\Models\Movimiento;
 use App\Models\Persona;
 use App\Models\Producto;
 use Carbon\Carbon;
@@ -24,14 +24,15 @@ class Reportevs extends Component
     {
         $this->listaClientes = Persona::all();
         $this->b =0;
-        $this->listaVentas = Venta::select('ventas.id','ventas.estado','ventas.cliente_id','ventas.updated_at',
-        'clientes.nombres','precioventa','cantidad',DB::raw('precioventa * cantidad as total'))
-        ->join('clientes','ventas.cliente_id','=','clientes.id')->where('nombres','like','%'.$this->search.'%')
-        ->join('producto_venta','ventas.id','=','producto_venta.venta_id')
-        ->whereDate('ventas.updated_at','>=',$this->fechainicio)
-        ->whereDate('ventas.updated_at','<=',$this->fechafin)
+        $this->listaVentas = Movimiento::select('movimientos.id','movimientos.estado','movimientos.persona_id','movimientos.updated_at',
+        'personas.nombres','precioventa','cantidad',DB::raw('precioventa * cantidad as total'))
+        ->join('personas','movimientos.persona_id','=','personas.id')->where('nombres','like','%'.$this->search.'%')
+        ->join('movimiento_producto','movimientos.id','=','movimiento_producto.movimiento_id')
+        ->whereDate('movimientos.updated_at','>=',$this->fechainicio)
+        ->whereDate('movimientos.updated_at','<=',$this->fechafin)
+        ->where('estado','=','PEDIDO')
         //->whereBetween('ventas.updated_at',[$this->fechainicio,$this->fechafin])
-        ->groupBy('ventas.id')->get();
+        ->groupBy('movimientos.id')->get();
 
         //$this->rep = [ $this->fechainicio,$this->fechafin];
 

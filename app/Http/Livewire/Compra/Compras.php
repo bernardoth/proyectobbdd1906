@@ -21,8 +21,9 @@ class Compras extends Component
         $this->listaCompras = Movimiento::select(
             'movimientos.id','movimientos.numeroDoc','movimientos.estado',
             'movimientos.updated_at','personas.nombres','personas.apellidos')
-            ->join('personas','movimientos.persona_id','=','personas.id')->
-            get();
+            ->join('personas','movimientos.persona_id','=','personas.id')
+            ->where('estado','=','COMPRA')
+            ->get();
         return view('livewire.compra.compras');
     }
     public function nueva()

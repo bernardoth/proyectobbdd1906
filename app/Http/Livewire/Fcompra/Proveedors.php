@@ -3,7 +3,7 @@
 namespace App\Http\Livewire\Fcompra;
 
 use Livewire\Component;
-use App\Models\Proveedor;
+use App\Models\Persona;
 
 class Proveedors extends Component
 {
@@ -11,8 +11,10 @@ class Proveedors extends Component
 
     public function render()
     {
-        $this->proveedores = Proveedor::where('nombres','like','%'.$this->search.'%')->
-        orWhere('cinit','like','%'.$this->search.'%')->get();
+        $this->proveedores = Persona::where('nombres','like','%'.$this->search.'%')
+        ->Where('ci','like','%'.$this->search.'%')
+        ->where('tipo','=','prov')
+        ->get();
         return view('livewire.fcompra.proveedors');
     }
     public function seleccion($id)

@@ -22,31 +22,19 @@ return new class extends Migration
                 IN `fechafin` DATE
             )
             BEGIN
-
-            (SELECT
-            ventas.created_at AS fecha,
-            ventas.numeroDoc as doc,
-            producto_venta.cantidad AS cantidad,
-            producto_venta.precioventa  AS precio,
-            "venta" AS tipo
-            FROM ventas
-            INNER JOIN producto_venta on(ventas.id=producto_venta.venta_id)
-            WHERE (DATE(ventas.created_at)>=fechainicio) AND
-            (DATE(ventas.created_at)<=fechafin) AND prod = producto_venta.producto_id
-            UNION
             SELECT
-            compras.created_at AS fecha,
-            compras.numeroDoc as doc,
-            compra_producto.cantidad AS cantidad,
-            compra_producto.preciocompra  AS precio,
-            "compra" as tipo
-            FROM compras
-            INNER JOIN compra_producto on(compras.id=compra_producto.compra_id)
-            WHERE (DATE(compras.created_at)>=fechainicio) AND
-            (DATE(compras.created_at)<=fechafin) AND prod = compra_producto.producto_id)
+            movimientos.created_at AS fecha,
+            movimientos.numeroDoc as doc,
+            movimientos.estado as tipo,
+            movimiento_producto.cantidad AS cantidad,
+            movimiento_producto.preciocompra AS preciocompra,
+            movimiento_producto.precioventa AS precioventa
+            FROM movimientos
+            INNER JOIN movimiento_producto on (movimientos.id=movimiento_producto.movimiento_id)
+            WHERE (DATE(movimientos.created_at)>=fechainicio AND
+            DATE(movimientos.created_at)<=fechafin AND prod = movimiento_producto.producto_id)
+            and( movimientos.estado= "COMPRA" or movimientos.estado = "PEDIDO")
             ORDER by fecha asc;
-
-
             END
             '
         );

@@ -39,7 +39,13 @@
                             <td class="border px-4 py-2">{{ $prod->codigo }}</td>
                             <td class="border px-4 py-2">{{ $prod->descripcion}}</td>
                             <td class="border px-4 py-2">{{ $prod->precioventa}}</td>
-                            <td class="border px-4 py-2">{{ $prod->stock}}</td>
+                            @if ($prod->stock < $prod->cant_min)
+                                <td class="border px-4 py-2 bg-yellow-600 text-gray-800">
+                                    {{ $prod->stock}}</td>
+                            @else
+                                <td class="border px-4 py-2">{{ $prod->stock}}</td>
+                            @endif
+
                             <td class="border px-4 py-2">{{ $prod->estado}}</td>
                             @foreach ($cat as $c)
                                 @if ($c->id== $prod->categoria_id)

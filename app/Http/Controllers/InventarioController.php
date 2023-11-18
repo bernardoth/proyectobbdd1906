@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Codedge\Fpdf\Fpdf\FPDF;
 use Illuminate\Support\Carbon;
-use App\Models\Venta;
-use App\Models\Compra;
+
+use App\Models\Movimiento;
 use App\Models\Producto;
 
 use Illuminate\Http\Request;
@@ -29,11 +29,13 @@ class InventarioController extends Controller
 
         $datos = $this->consulta($fechainicio,$fechafin,$id);
         $producto = $this->consultaProd($id);
-
+        //dd($datos);
         $this->pdf->Text(70,45,'Articulo : '.$producto->descripcion);
         $this->pdf->Text(70,50,'Cantidad inicial : '.$producto->stockinicial);
         $this->pdf->SetXY(15,60);
+
         //dd($datos);
+
         $header =array(
             'FECHA',
             'DETALLE',
@@ -76,7 +78,7 @@ class InventarioController extends Controller
             $this->pdf->SetXY(15,$fila);
             $this->pdf->Cell($sizeHeader2[0],7,$item->fecha,0,0,'C',$fill);
             $fila=$fila+7;
-            if ($item->tipo=='venta')
+            if ($item->tipo=='PEDIDO')
             {
                 $this->pdf->Cell($sizeHeader2[1],7,
                 mb_convert_encoding("\t\t Venta con Doc. Nº Doc",'ISO-8859-1','UTF-8').' '. $item->doc,0,0,'L',$fill);
@@ -84,23 +86,23 @@ class InventarioController extends Controller
                 $this->pdf->Cell($sizeHeader2[3],7,'',0,0,'C',$fill);
                 $this->pdf->Cell($sizeHeader2[4],7,'',0,0,'C',$fill);
                 $this->pdf->Cell($sizeHeader2[5],7,$item->cantidad,0,0,'C',$fill);
-                $this->pdf->Cell($sizeHeader2[6],7,$item->precio,0,0,'C',$fill);
-                $this->pdf->Cell($sizeHeader2[7],7,$item->precio*$item->cantidad,0,0,'C',$fill);
+                $this->pdf->Cell($sizeHeader2[6],7,$item->precioventa,0,0,'C',$fill);
+                $this->pdf->Cell($sizeHeader2[7],7,$item->precioventa*$item->cantidad,0,0,'C',$fill);
 
-                array_push($sumS,($item->precio*$item->cantidad));
+                array_push($sumS,($item->precioventa*$item->cantidad));
                 $num = $num - $item->cantidad;
                 $this->pdf->Cell($sizeHeader2[8],7,$num,0,0,'C',$fill);
             }
             //mb_convert_encoding('Nº Doc','ISO-8859-1','UTF-8')
-            else
+            if ($item->tipo=='COMPRA')
             {
                 $this->pdf->Cell($sizeHeader2[1],7,
                 mb_convert_encoding("\t\t Compra con Doc. Nº Doc",'ISO-8859-1','UTF-8').' '. $item->doc,0,0,'L',$fill);
 
                 $this->pdf->Cell($sizeHeader2[2],7,$item->cantidad,0,0,'C',$fill);
-                $this->pdf->Cell($sizeHeader2[3],7,$item->precio,0,0,'C',$fill);
-                $this->pdf->Cell($sizeHeader2[4],7,$item->precio*$item->cantidad,0,0,'C',$fill);
-                array_push($sumE,($item->precio*$item->cantidad));
+                $this->pdf->Cell($sizeHeader2[3],7,$item->preciocompra,0,0,'C',$fill);
+                $this->pdf->Cell($sizeHeader2[4],7,$item->preciocompra*$item->cantidad,0,0,'C',$fill);
+                array_push($sumE,($item->preciocompra*$item->cantidad));
                 $this->pdf->Cell($sizeHeader2[5],7,'',0,0,'C',$fill);
                 $this->pdf->Cell($sizeHeader2[6],7,'',0,0,'C',$fill);
                 $this->pdf->Cell($sizeHeader2[7],7,'',0,0,'C',$fill);
@@ -144,6 +146,7 @@ class InventarioController extends Controller
     {
        $lista =  DB::select('call prodInventario(?,?,?)',array($id,$fechainicio,$fechafin));
        //dd($lista);
+
        return $lista;
     }
     public function consultaProd($id)
