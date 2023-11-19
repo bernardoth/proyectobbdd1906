@@ -4,10 +4,13 @@ namespace App\Http\Livewire\Compra;
 
 use Livewire\Component;
 use App\Models\Movimiento;
+use App\Models\Producto;
 use Carbon\Carbon;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Compras extends Component
 {
+    use LivewireAlert;
     public $listaCompras,$search,$estado;
     public $fecha;
 
@@ -38,6 +41,24 @@ class Compras extends Component
     public function eliminar($id)
     {
         $c=Movimiento::find($id);
+        $items = $v->productos;
+        foreach ($items as $item)
+        {
+            $producto= Producto::find($item->id);
+            $in = $producto->entrada;
+            Producto::updateOrCreate(['id'=>$item->id],
+                    [
+
+                        'salida'=>$in-$item->pivot->cantidad,
+
+                    ]);
+
+        }
+
+        $this->alert('warning', 'Compra eliminada.'.$item->cantidad,[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
         $c->productos()->detach();
 
         $c->delete();

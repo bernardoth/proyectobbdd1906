@@ -13,6 +13,7 @@ class Clientes extends Component
     {
         $this->clientes = Persona::where('nombres','like','%'.$this->search.'%')
         ->where('tipo','=','clie')
+        ->orWhere('tipo','=','clieprov')
         ->Where('ci','like','%'.$this->search.'%')->get();
         return view('livewire.formulario.clientes');
     }

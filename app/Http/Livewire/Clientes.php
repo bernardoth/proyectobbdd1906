@@ -5,10 +5,12 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Cliente;
 use App\Models\Persona;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Clientes extends Component
 {
-    public $clientes,$search,$nombres,$apellidos,$correo,$celular,$ci,$idclie;
+    use LivewireAlert;
+    public $clientes,$search,$nombres,$apellidos,$correo,$celular,$ci,$idclie,$tipo='clie';
     public $modal = 0;
 
     protected $rules=[
@@ -23,6 +25,7 @@ class Clientes extends Component
     {
         $this->clientes = Persona::where('nombres','like','%'.$this->search.'%')
         ->where('tipo','=','clie')
+        ->orWhere('tipo','=','clieprov')
         ->where('ci','like','%'.$this->search.'%')->get();
         return view('livewire.cliente.clientes');
     }
@@ -42,12 +45,14 @@ class Clientes extends Component
             'apellidos'=>$this->apellidos,
             'correo'=>$this->correo,
             'celular'=>$this->celular,
-            'ci'=>$this->ci
+            'ci'=>$this->ci,
+            'tipo'=>$this->tipo
         ]);
-        session()->flash(
-            'message',
-            $this->idclie ? '¡Actualización exitosa!' : '¡Alta Exitosa!');
 
+        $this->alert('success', 'Datos guardados exitosamente .',[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
         $this->cerrarModal();
         $this->limpiar();
     }
@@ -60,13 +65,17 @@ class Clientes extends Component
         $this->correo = $cliente->correo;
         $this->celular = $cliente->celular;
         $this->ci = $cliente->ci;
+        $this->tipo = $cliente->tipo;
         $this->abrirModal();
     }
 
     public function borrar($id)
     {
         Persona::find($id)->delete();
-        session()->flash('message', 'Registro eliminado correctamente');
+        $this->alert('warning', 'Cliente eliminado.',[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
     }
     public function abrirModal()
     {

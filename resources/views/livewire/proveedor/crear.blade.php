@@ -42,11 +42,11 @@
                             <input type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="correo" wire:model="correo">
                         </div>
-                        <div class="mb-4">
+                        <!--<div class="mb-4">
                             <label for="direccion" class="block text-gray-700 text-sm font-bold mb-2">Direccion:</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="direccion" wire:model="direccion">
-                        </div>
+                        </div>-->
                         <div class="mb-4">
                             <label for="celular" class="block text-gray-700 text-sm font-bold mb-2">Celular:</label>
                             <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -58,6 +58,15 @@
                             id="ci" wire:model="ci">
                             @error('ci') <span class="error text-red-500">Campo obligatorio</span> @enderror
                             <input type="text" hidden value="prov" wire:model="tipo">
+                        </div>
+                        <div class="mb-4 w-full">
+                            <label for="tipo" class="block text-gray-700 text-sm font-bold mb-2">
+                                Cliente/Proveedor</label>
+                            <select wire:model="tipo" class="w-full" name="tipo" id="tipo">
+                                <option  value="clie">Cliente</option>
+                                <option selected value="prov">Proveedor</option>
+                                <option value="clieprov">Ambos</option>
+                            </select>
                         </div>
                         </div>
 

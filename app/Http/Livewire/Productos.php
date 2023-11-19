@@ -5,13 +5,16 @@ use Livewire\WithPagination;
 use Livewire\Component;
 use App\Models\Producto;
 use App\Models\Categoria;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Productos extends Component
 {
+    use LivewireAlert;
+
     use WithPagination;
     public $productosl,$search,$codigo,$descripcion,$precioventa,$preciocompra,$stockinicial,$estado='ACTIVO',$categoria_id='',$idprod;
     public $cat,$nomcat,$idcat,$cant_min;
-    public $modal = 0;
+    public $modal = 0,$sw=true;
 
     protected $rules =[
         'codigo'=>'required',
@@ -38,6 +41,7 @@ class Productos extends Component
         $this->limpiar();
         $this->abrirModal();
 
+
     }
     public function guardar()
     {
@@ -52,9 +56,15 @@ class Productos extends Component
             'cant_min'=>$this->cant_min,
             'categoria_id'=>$this->categoria_id
         ]);
-        session()->flash(
+        /*session()->flash(
             'message',
-            $this->idprod ? '¡Actualización exitosa!' : '¡Alta Exitosa!');
+            $this->idprod ? '¡Actualización exitosa!' : '¡Alta Exitosa!');*/
+
+
+            $this->alert('success', 'Datos guardados exitosamente .',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
 
         $this->cerrarModal();
         $this->limpiar();
@@ -73,13 +83,19 @@ class Productos extends Component
         $this->cant_min = $productol->cant_min;
         $this->categoria_id =$productol->categoria_id;
 
+        $this->sw=false;
         $this->abrirModal();
+
     }
 
     public function borrar($id)
     {
         Producto::find($id)->delete();
-        session()->flash('message', 'Registro eliminado correctamente');
+        //session()->flash('message', 'Registro eliminado correctamente');
+        $this->alert('warning', 'Producto eliminado.',[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
     }
     public function abrirModal()
     {

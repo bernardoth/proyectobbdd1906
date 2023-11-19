@@ -19,7 +19,7 @@ class Formularioc extends Component
     public $datosCliente,$arreglo="",$estado='COMPRA',$listaProd=[],$numeroDoc;
     public $idventa,$dVenta,$lprod,$v=[],$lv=[],$actualizar,$venta,$cliente,$producto,$cont;
 
-    protected $listeners =['cerrarModal','addProv','addProducto','cerrarModal','guardar','editaCompra'] ;
+    protected $listeners =['cerrarModal','addProv','addProducto','cerrarModal','guardar','editaCompra','nombres'] ;
 
 
     public function mount($valor)
@@ -229,6 +229,28 @@ class Formularioc extends Component
         $this->valor = $id;
     }
 
+    public function nombre($g)
+    {
+        if ($g=='clie') {
+            $this->alert('warning', 'Faltan datos de cliente',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+        if ($g=='prod') {
+            $this->alert('warning', 'Debe seleccionar productos',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+        if ($g=='cant') {
+            $this->alert('warning', 'La cantidad de productos debe ser mayor a cero',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+        
+    }
 
 
 }

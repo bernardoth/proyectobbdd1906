@@ -39,6 +39,7 @@
 
                             </div>
 
+
                             <div class="mb-4">
                             <label for="carnet" class="block text-gray-700 text-sm font-bold mb-2">Carnet</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -55,10 +56,12 @@
                             <div>
                                 <label for="cargo" class="block text-gray-700 text-sm font-bold mb-2">Cargo</label>
                                 <select wire:model="cargo" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="cargo" id="cargo">Cargo
+                                    <option selected value="">SELECCIONAR</option>
                                     <option value="VENDEDOR">VENDEDOR</option>
-                                    <option selected value="NOOB" >NOOB</option>
+                                    <option  value="NOOB" >NOOB</option>
                                     <option  value="ADMIN">ADMIN</option>
                                 </select>
+                                @error('cargo') <span class="error text-red-500">{{ $message }}</span> @enderror
                             </div>
                             <div class="mb-4">
                                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Correo:</label>

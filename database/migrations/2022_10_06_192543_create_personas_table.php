@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('correo', 100)->nullable();
             $table->string('celular', 15)->nullable();
             $table->string('ci', 15);
-            $table->enum('tipo',['clie','prov'])->default('clie');
+            $table->enum('tipo',['clie','prov','clieprov'])->default('clie');
             $table->timestamps();
         });
     }

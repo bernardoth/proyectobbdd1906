@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('direccion');
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
+            $table->enum('estado',['ACTIVO','INACTIVO'])->default('ACTIVO');
             $table->timestamps();
         });
     }

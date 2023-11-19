@@ -9,9 +9,11 @@ use App\Models\Producto;
 use App\Models\User;
 use App\Models\Movimiento;
 use Carbon\Carbon;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Ventas extends Component
 {
+    use LivewireAlert;
     use WithPagination;
     public $listaVentas,$listaClientes,$nuevaVenta,$usuario;
     public $selectClie,$valor,$search='',$fecha='',$tipo='PROFORMA';
@@ -52,8 +54,27 @@ class Ventas extends Component
     {
 
         $v=Movimiento::find($id);
-        $v->productos()->detach();
+        //
+        $items = $v->productos;
+        foreach ($items as $item)
+        {
+            $producto= Producto::find($item->id);
+            $in = $producto->salida;
+            Producto::updateOrCreate(['id'=>$item->id],
+                    [
 
+                        'salida'=>$in-$item->pivot->cantidad,
+
+                    ]);
+
+        }
+
+        $v->productos()->detach();
         $v->delete();
+
+        $this->alert('warning', 'Venta eliminada.'.$item->cantidad,[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
     }
 }

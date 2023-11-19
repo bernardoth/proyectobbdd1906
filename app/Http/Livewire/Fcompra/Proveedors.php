@@ -14,6 +14,7 @@ class Proveedors extends Component
         $this->proveedores = Persona::where('nombres','like','%'.$this->search.'%')
         ->Where('ci','like','%'.$this->search.'%')
         ->where('tipo','=','prov')
+        ->orWhere('tipo','=','clieprov')
         ->get();
         return view('livewire.fcompra.proveedors');
     }

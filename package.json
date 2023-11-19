@@ -20,6 +20,7 @@
     "dependencies": {
         "@alpinejs/persist": "^3.10.5",
         "bootstrap-icons": "^1.9.1",
-        "select2": "^4.1.0-rc.0"
+        "select2": "^4.1.0-rc.0",
+        "sweetalert2": "^11.10.0"
     }
 }

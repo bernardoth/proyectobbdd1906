@@ -45,7 +45,7 @@ class Personas extends Component
             'correo'=>$this->correo,
             'celular'=>$this->celular,
             'ci'=>$this->ci,
-            'tipo'=>'clie'
+            'tipo'=>$this->tipo
         ]);
         session()->flash(
             'message',
@@ -63,7 +63,7 @@ class Personas extends Component
         $this->correo = $cliente->correo;
         $this->celular = $cliente->celular;
         $this->ci = $cliente->ci;
-        $this->tipo = 'clie';
+        $this->tipo = $cliente->tipo;
         $this->abrirModal();
     }
 

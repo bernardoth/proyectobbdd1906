@@ -14,6 +14,9 @@
                         <div class="mb-4">
                             <h1 class="font-bold">Nuevo Cliente</h1>
                         </div>
+                        <div class="grid grid-cols-2 gap-4">
+
+
                         <div class="mb-4">
                             <label for="nombres" class="block text-gray-700 text-sm font-bold mb-2">Nombres:</label>
                             <input type="text"   class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -32,6 +35,7 @@
                             <input type="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="correo" wire:model="correo">
                         </div>
+
                         <div class="mb-4">
                             <label for="celular" class="block text-gray-700 text-sm font-bold mb-2">Celular:</label>
                             <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -43,9 +47,18 @@
                             <label for="ci" class="block text-gray-700 text-sm font-bold mb-2">CI:</label>
                             <input type="text" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             id="ci" wire:model="ci">
+
                         </div>
-                        <input type="text" hidden value="clie"
-                            id="tipo" wire:model="tipo">
+                        <div class="mb-4 w-full">
+                            <label for="tipo" class="block text-gray-700 text-sm font-bold mb-2">
+                                Cliente/Proveedor</label>
+                            <select wire:model="tipo"  class="w-full" name="tipo" id="tipo">
+                                <option selected value="clie">Cliente</option>
+                                <option value="prov">Proveedor</option>
+                                <option value="clieprov">Ambos</option>
+                            </select>
+                        </div>
+                        </div>
 
 
                         <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">

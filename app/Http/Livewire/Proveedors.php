@@ -4,9 +4,11 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Persona;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Proveedors extends Component
 {
+    use LivewireAlert;
     public $listaProv,$search,$modal=0,$numeroDoc,$estado,$nombres,$apellidos,$correo,$direccion,$ci;
     public $celular,$idprov,$tipo='prov';
 
@@ -19,6 +21,7 @@ class Proveedors extends Component
     {
         $this->listaProv = Persona::where('nombres','like','%'.$this->search.'%')
         ->where('tipo','=','prov')
+        ->orWhere('tipo','=','clieprov')
         ->Where('ci','like','%'.$this->search.'%')->get();
         return view('livewire.proveedor.proveedors');
     }
@@ -44,9 +47,10 @@ class Proveedors extends Component
             'ci'=>$this->ci,
             'tipo'=>$this->tipo
         ]);
-        session()->flash(
-            'message',
-            $this->idprov ? '¡Actualización exitosa!' : '¡Alta Exitosa!');
+        $this->alert('success', 'Datos guardados exitosamente .',[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
 
         $this->cerrarModal();
         $this->limpiar();
@@ -54,7 +58,10 @@ class Proveedors extends Component
     public function borrar($id)
     {
         Persona::find($id)->delete();
-        session()->flash('message', 'Registro eliminado correctamente');
+        $this->alert('warning', 'Proveedor eliminado.',[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
     }
 
 
@@ -83,7 +90,7 @@ class Proveedors extends Component
         $this->direccion = $prov->direccion;
         $this->celular = $prov->celular;
         $this->ci = $prov->ci;
-        $this->tipo ='prov';
+        $this->tipo =$prov->tipo;
         $this->abrirModal();
     }
 

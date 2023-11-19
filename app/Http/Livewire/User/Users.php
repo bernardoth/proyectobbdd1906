@@ -4,12 +4,15 @@ namespace App\Http\Livewire\User;
 
 use Livewire\Component;
 use App\Models\User;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+
 //use Illuminate\Support\Facades\Auth;
 
 class Users extends Component
 {
-    public $usuarios,$iduser,$name,$apellidopaterno,$apellidomaterno,$password,$cargo,$email;
-    public $carnet,$celular,$direccion;
+    use LivewireAlert;
+    public $usuarios,$iduser,$name,$apellidopaterno,$apellidomaterno,$password,$cargo='',$email;
+    public $carnet,$celular,$direccion,$estado;
     public $modal=0;
 
     protected function rules()
@@ -21,13 +24,14 @@ class Users extends Component
         'apellidopaterno'=>'required',
         'apellidomaterno'=>'required',
         'carnet'=>'required',
-        'celular'=>'required'
+        'celular'=>'required',
+        'cargo'=>'required'
     ];
     }
 
     public function render()
     {
-        $this->usuarios =User::all();
+        $this->usuarios =User::where('estado','=','ACTIVO')->get();
         return view('livewire.user.users');
     }
     public function crear()
@@ -50,8 +54,13 @@ class Users extends Component
                 'cargo'=>$this->cargo,
                 'direccion'=>$this->direccion,
                 'password'=>bcrypt($this->password),
+                'estado'=>'ACTIVO',
 
 
+            ]);
+            $this->alert('success', 'Datos de usuario guardados exitosamente .',[
+                'toast'=>false,
+                'position'=>'center'
             ]);
             $this->cerrarModal();
             $this->limpiar();
@@ -70,11 +79,21 @@ class Users extends Component
         $this->direccion = $usuario->direccion;
         $this->password = $usuario->password;
         $this->abrirModal();
-        session()->flash('message', 'Registro eliminado correctamente');
+
     }
     public function borrar($id)
     {
-        User::find($id)->delete();
+        //User::find($id)->delete();
+        User::updateOrCreate(
+            ['id'=>$id],
+            [
+
+                'estado'=>'INACTIVO',
+                'password'=>bcrypt('ELEFANTE'),
+
+
+            ]);
+
     }
     public function abrirModal()
     {

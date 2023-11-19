@@ -9,9 +9,11 @@ use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\Movimiento;
 use App\Models\User;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Formulario extends Component
 {
+    use LivewireAlert;
 
     public $ventaCliente,$selectClie,$clientes,$valor,$nombreClie,$apellidos,$ci,$busqueda;
     public $modalClie= false,$modalProd = false,$experimento,$nuevoNumero,$stock;
@@ -19,7 +21,7 @@ class Formulario extends Component
     public $datosCliente,$arreglo="",$estado='PROFORMA',$listaProd=[];
     public $idventa,$dVenta,$lprod,$v=[],$lv=[],$actualizar,$venta,$cliente,$producto,$cont;
 
-    protected $listeners = ['addCliente','cerrarModal','addProducto','guardar','editaVenta'];
+    protected $listeners = ['addCliente','cerrarModal','addProducto','guardar','editaVenta','nombre'];
 
 
     public function mount($valor)
@@ -231,9 +233,13 @@ class Formulario extends Component
 
 
             }
+            $this->flash('success', 'Datos guardados exitosamente .',[
+                'toast'=>false,
+                'position'=>'center'
+            ],'http://proyectobbdd1906.me/venta/ventas');
 
 
-            return view('livewire.venta.ventas');
+            //return view('livewire.venta.ventas');
 
 
     }
@@ -241,6 +247,35 @@ class Formulario extends Component
     public function editaVenta($id)
     {
         $this->valor = $id;
+    }
+    public function nombre($g)
+    {
+        if ($g=='clie') {
+            $this->alert('warning', 'Faltan datos de cliente',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+        if ($g=='prod') {
+            $this->alert('warning', 'Debe seleccionar productos',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+        if ($g=='cant') {
+            $this->alert('warning', 'La cantidad de productos debe ser mayor a cero',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+        if ($g=='stock') {
+            $this->alert('warning', 'La cantidad en stock es insuficiente.',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+
+
     }
 
 

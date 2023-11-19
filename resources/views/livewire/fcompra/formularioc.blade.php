@@ -278,7 +278,7 @@
 
                 } else {
 
-                    alert('La cantidad debe ser mayor a cero');
+                    Livewire.emit('nombre','cant');
                     document.querySelector('#cantidad').value = '';
 
                 }
@@ -288,15 +288,17 @@
 
                 },
                 validacion:function()
-                {   var que = document.querySelector('#nomclie').value;
+                {   var nom = document.querySelector('#nomclie').value;
+                    var ape = document.querySelector('#apellidos').value;
+                    var nit = document.querySelector('#ci').value;
                     console.log(que.length);
-                    if (que.length==0) {
-                        alert('Debe llenar el nombre');
+                    if (nom.length==0 || ape.length==0 ||ci.length==0) {
+                        Livewire.emit('nombre','clie');
                     console.log(que);
 
                     }
                     if(this.prod.length==0){
-                        alert('Debe seleccionar productos');
+                        Livewire.emit('nombre','prod');
                     }
                     else
                     {

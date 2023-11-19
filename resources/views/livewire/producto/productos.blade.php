@@ -3,6 +3,7 @@
         <div class="col-span-8 text-white bg-slate-600 py-2 px-2">
             Listado de Productos
         </div>
+
         <div class="py-2 col-span-7 px-2 bg-slate-600 ">
 
             <input wire:model="search" type="text">
@@ -65,11 +66,26 @@
                 </tbody>
 
             </table>
-            <div class="py-4 text-gray-100">
+            <div class="py-4  text-gray-100">
                 {{$productos->links()}}
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    Swal.fire({
+  title: 'Error!',
+  text: 'Do you want to continue',
+  icon: 'error',
+  confirmButtonText: 'Cool'
+})
+
+
+
+
+</script>
+
+
 
 

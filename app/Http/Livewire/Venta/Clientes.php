@@ -11,8 +11,11 @@ class Clientes extends Component
     public $busqueda,$modalClie,$selecClie,$clientes;
     public function render()
     {
-        $this->clientes = Persona::where('nombres','like','%'.$this->busqueda.'%')->
-        orWhere('ci','like','%'.$this->busqueda.'%')->get();
+        $this->clientes = Persona::where('nombres','like','%'.$this->busqueda.'%')
+        //->where('tipo','=','clie')
+        ->Where('tipo','=','clieprov')
+        ->orWhere('ci','like','%'.$this->busqueda.'%')
+        ->get();
         return view('livewire.venta.clientes');
     }
 

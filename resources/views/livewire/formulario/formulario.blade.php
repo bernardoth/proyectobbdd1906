@@ -206,7 +206,7 @@
                     subtotal.value =Number(valor.toFixed(3));
                     //console.log('cambio change: '+valor);
                 }else{
-                    alert('Cantidad en Stock insuficiente');
+                    Livewire.emit('nombre','stock');
                     document.querySelector('#cantidad').value = '';
                 }
 
@@ -277,7 +277,7 @@
 
                 } else {
 
-                    alert('La cantidad debe ser mayor a cero');
+                    Livewire.emit('nombre','cant');
                     document.querySelector('#cantidad').value = '';
 
                 }
@@ -287,19 +287,23 @@
 
                 },
                 validacion:function()
-                {   var que = document.querySelector('#nomclie').value;
-                    console.log(que.length);
-                    if (que.length==0) {
-                        alert('Debe llenar el nombre');
-                    console.log(que);
+                {   var nom = document.querySelector('#nomclie').value;
+                    var ape = document.querySelector('#apellidos').value;
+                    var nit = document.querySelector('#ci').value;
+                    var hola = 'perpolas';
+                    if (nom.length==0  ||ci.length==0) {
+                        //alert('Debe llenar el nombre');
+                        Livewire.emit('nombre','clie');
+                        console.log(typeof que);
 
                     }
                     if(this.prod.length==0){
-                        alert('Debe seleccionar productos');
+                        //alert('Debe seleccionar productos');
+                        Livewire.emit('nombre','prod');
                     }
                     else
                     {
-                        this.datos();
+                       this.datos();
                         console.log(this.prod);
                     }
                 },

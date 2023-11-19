@@ -4,9 +4,11 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Categoria;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Categorias extends Component
 {
+    use LivewireAlert;
 
     public $categorias,$search,$codigo,$nombre,$idcat;
     public $modal=0;
@@ -43,6 +45,11 @@ class Categorias extends Component
 
         session()->flash('message',
         $this->idcat ? '¡Actualización exitosa!' : '¡Alta Exitosa!');
+
+        $this->alert('success', 'Datos guardados exitosamente .',[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
         $this->cerrarModal();
         $this->limpiar();
 
@@ -60,7 +67,10 @@ class Categorias extends Component
     public function borrar($id)
     {
         Categoria::find($id)->delete();
-        session()->flash('message', 'Registro eliminado correctamente');
+        $this->alert('warning', 'Categoria eliminada.',[
+            'toast'=>false,
+            'position'=>'center'
+        ]);
     }
 
     public function abrirModal()

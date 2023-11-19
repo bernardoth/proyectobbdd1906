@@ -9,6 +9,7 @@
         "barryvdh/laravel-dompdf": "^2.0",
         "codedge/laravel-fpdf": "^1.11",
         "guzzlehttp/guzzle": "^7.2",
+        "jantinnerezo/livewire-alert": "^3.0",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
