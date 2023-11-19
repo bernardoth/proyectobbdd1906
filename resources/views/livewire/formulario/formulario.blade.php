@@ -291,13 +291,15 @@
                     var ape = document.querySelector('#apellidos').value;
                     var nit = document.querySelector('#ci').value;
                     var hola = 'perpolas';
-                    if (nom.length==0  ||ci.length==0) {
+                    if (nom.length==0 ||nit.length==0   ) {
                         //alert('Debe llenar el nombre');
                         Livewire.emit('nombre','clie');
-                        console.log(typeof que);
+                        console.log('que-'+nom.length+'-que');
 
                     }
-                    if(this.prod.length==0){
+                    else
+                    {
+                    if(this.prod.length==0 ){
                         //alert('Debe seleccionar productos');
                         Livewire.emit('nombre','prod');
                     }
@@ -305,7 +307,9 @@
                     {
                        this.datos();
                         console.log(this.prod);
+                        //Livewire.emit('nombre','venta');
                     }
+                }
                 },
 
                 mostrar:function(){
@@ -361,7 +365,7 @@
             //var miestado = document.querySelector('#estado').value;
 
 
-            window.location.href="http://proyectobbdd1906.me/venta/ventas";
+            //window.location.href="http://proyectobbdd1906.me/venta/ventas";
 
 
 

@@ -56,9 +56,11 @@
                                 <td class="border px-4 py-2 ">
                                     <button wire:click="editar({{ $u->id }})"
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 ">Edit</button>
-
+                                    @if ($u->id!=1)
                                         <button  wire:click="borrar({{ $u->id }})"
                                         class="bg-red-500  hover:bg-red-700 text-white font-bold py-2 px-6 ">Del</button>
+                                    @endif
+
 
                                 </td>
                             </tr>

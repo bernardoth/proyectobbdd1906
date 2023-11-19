@@ -291,13 +291,17 @@
                 {   var nom = document.querySelector('#nomclie').value;
                     var ape = document.querySelector('#apellidos').value;
                     var nit = document.querySelector('#ci').value;
-                    console.log(que.length);
-                    if (nom.length==0 || ape.length==0 ||ci.length==0) {
+                    console.log(nom.length);
+                    if (nom.length==0 ||ci.length==0)
+                    {
                         Livewire.emit('nombre','clie');
-                    console.log(que);
+
 
                     }
-                    if(this.prod.length==0){
+                    else
+                    {
+                    if(this.prod.length==0)
+                    {
                         Livewire.emit('nombre','prod');
                     }
                     else
@@ -305,6 +309,7 @@
                         this.datos();
                         console.log(this.prod);
                     }
+                }
                 },
 
                 mostrar:function(){
@@ -360,7 +365,7 @@
             //var miestado = document.querySelector('#estado').value;
 
 
-            window.location.href="http://proyectobbdd1906.me/compra/compras";
+            //window.location.href="http://proyectobbdd1906.me/compra/compras";
 
 
 

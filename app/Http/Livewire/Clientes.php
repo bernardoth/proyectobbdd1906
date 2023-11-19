@@ -16,7 +16,7 @@ class Clientes extends Component
     protected $rules=[
         'nombres'=>'required',
 
-        'celular'=>'required',
+        'ci'=>'required',
 
     ];
 

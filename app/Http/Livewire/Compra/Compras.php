@@ -40,7 +40,7 @@ class Compras extends Component
     }
     public function eliminar($id)
     {
-        $c=Movimiento::find($id);
+        $v=Movimiento::find($id);
         $items = $v->productos;
         foreach ($items as $item)
         {
@@ -59,9 +59,9 @@ class Compras extends Component
             'toast'=>false,
             'position'=>'center'
         ]);
-        $c->productos()->detach();
+        $v->productos()->detach();
 
-        $c->delete();
+        $v->delete();
     }
 
 }

@@ -126,8 +126,8 @@ class Formulario extends Component
 
     public function nuevoCliente()
     {
-        if ($this->cinit!='') {
-            $this->cliente = Persona::where('ci',$this->cinit)->get();
+        if ($this->ci!='') {
+            $this->cliente = Persona::where('ci',$this->ci)->get();
             if (is_null($this->cliente)) {
                 $nClie = new Persona();
                 $nclie->nombres = $this->nombres;
@@ -141,13 +141,19 @@ class Formulario extends Component
     {
         //$this->validate();
         //$this->arreglo = $que;
-        if (is_null($this->selectClie)) {
+
+
+        if (is_null($this->selectClie))
+        {
+
+
             $newClie = new Persona();
             $newClie->nombres = $this->nombreClie;
             $newClie->apellidos = $this->apellidos;
             $newClie->ci = $this->ci;
+            $newClie->tipo = 'clie';
             $newClie->save();
-            $c = Persona::where('ci',$this->cinit)->get();
+            $c = Persona::where('ci',$this->ci)->get();
             $this->selectClie = $newClie->id;
         }
         /*
@@ -250,30 +256,47 @@ class Formulario extends Component
     }
     public function nombre($g)
     {
-        if ($g=='clie') {
-            $this->alert('warning', 'Faltan datos de cliente',[
-                'toast'=>false,
-                'position'=>'center'
-            ]);
+        switch ($g) {
+            case 'clie':
+                $this->alert('warning', 'Faltan datos de cliente',[
+                    'toast'=>false,
+                    'position'=>'center'
+                ]);
+
+                break;
+            case 'prod':
+                $this->alert('warning', 'Debe seleccionar productos',[
+                    'toast'=>false,
+                    'position'=>'center'
+                ]);
+                break;
+            case 'stock':
+                $this->alert('warning', 'La cantidad en stock es insuficiente.',[
+                    'toast'=>false,
+                    'position'=>'center'
+                ]);
+                break;
+            case 'venta':
+                $this->alert('success', 'Datos guardados exitosamente.',[
+                    'toast'=>false,
+                    'position'=>'center'
+                ]);
+                break;
+            case 'cant':
+                $this->alert('success', 'Debe asignar una cantidad de producto.',[
+                    'toast'=>false,
+                    'position'=>'center'
+                ]);
+                break;
+
+
+
+
+            default:
+                # code...
+                break;
         }
-        if ($g=='prod') {
-            $this->alert('warning', 'Debe seleccionar productos',[
-                'toast'=>false,
-                'position'=>'center'
-            ]);
-        }
-        if ($g=='cant') {
-            $this->alert('warning', 'La cantidad de productos debe ser mayor a cero',[
-                'toast'=>false,
-                'position'=>'center'
-            ]);
-        }
-        if ($g=='stock') {
-            $this->alert('warning', 'La cantidad en stock es insuficiente.',[
-                'toast'=>false,
-                'position'=>'center'
-            ]);
-        }
+
 
 
     }

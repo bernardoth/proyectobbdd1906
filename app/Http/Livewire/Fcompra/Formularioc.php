@@ -9,9 +9,11 @@ use App\Models\Persona;
 use App\Models\Producto;
 use App\Models\Movimiento;
 use App\Models\User;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Formularioc extends Component
 {
+    use LivewireAlert;
 
     public $ventaCliente,$selectClie,$clientes,$valor,$nombreClie,$apellidos,$ci,$busqueda;
     public $modalClie= false,$modalProd = false,$experimento,$nuevoNumero,$stock;
@@ -19,7 +21,7 @@ class Formularioc extends Component
     public $datosCliente,$arreglo="",$estado='COMPRA',$listaProd=[],$numeroDoc;
     public $idventa,$dVenta,$lprod,$v=[],$lv=[],$actualizar,$venta,$cliente,$producto,$cont;
 
-    protected $listeners =['cerrarModal','addProv','addProducto','cerrarModal','guardar','editaCompra','nombres'] ;
+    protected $listeners =['cerrarModal','addProv','addProducto','cerrarModal','guardar','editaCompra','nombre'] ;
 
 
     public function mount($valor)
@@ -115,10 +117,10 @@ class Formularioc extends Component
         $this->idProd = $id;
         $this->producto = Producto::find($id);
         $this->descripcion = $this->producto->descripcion;
-        $this->precioventa = $this->producto->precioventa;
+        $this->precioventa = $this->producto->preciocompra;
         $this->stock = $this->producto->stock;
         $this->cantidad = 0;
-        $this->subtotal= $this->precioventa* $this->cantidad;
+        $this->subtotal= $this->preciocompra* $this->cantidad;
         array_push($this->listaProd,$id);
         $this->cont = count($this->listaProd);
     }
@@ -145,8 +147,9 @@ class Formularioc extends Component
             $newClie->nombres = $this->nombreClie;
             $newClie->apellidos = $this->apellidos;
             $newClie->ci = $this->ci;
+            $newClie->tipo = 'prov';
             $newClie->save();
-            $c = Persona::where('ci',$this->cinit)->get();
+            $c = Persona::where('ci',$this->ci)->get();
             $this->selectClie = $newClie->id;
         }
         /*
@@ -217,9 +220,13 @@ class Formularioc extends Component
 
 
             }
+            $this->flash('success', 'Datos guardados exitosamente .',[
+                'toast'=>false,
+                'position'=>'center'
+            ],'http://proyectobbdd1906.me/compra/compras');
 
 
-            return view('livewire.compra.compras');
+            //return view('livewire.compra.compras');
 
 
     }
@@ -231,25 +238,34 @@ class Formularioc extends Component
 
     public function nombre($g)
     {
-        if ($g=='clie') {
+        switch ($g)
+        {
+        case 'clie':
             $this->alert('warning', 'Faltan datos de cliente',[
                 'toast'=>false,
                 'position'=>'center'
             ]);
-        }
-        if ($g=='prod') {
+            break;
+        case 'prod':
             $this->alert('warning', 'Debe seleccionar productos',[
                 'toast'=>false,
                 'position'=>'center'
             ]);
-        }
-        if ($g=='cant') {
+            break;
+        case 'cant':
             $this->alert('warning', 'La cantidad de productos debe ser mayor a cero',[
                 'toast'=>false,
                 'position'=>'center'
             ]);
-        }
-        
+            break;
+
+
+        default:
+            # code...
+            break;
+    }
+
+
     }
 
 
