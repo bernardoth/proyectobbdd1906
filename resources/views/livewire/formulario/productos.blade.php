@@ -28,18 +28,27 @@
                             <td class="px-5">{{$prod->codigo}}</td>
                             <td class="px-5">{{$prod->descripcion}}</td>
                             <td class="px-5">{{$prod->precioventa}}</td>
-                            @if ($prod->stock < $prod->cant_min)
+                            @if ($prod->stock < $prod->cant_min and $prod->stock!=0)
                                 <td class="px-5 bg-yellow-600 text-gray-800">
                                     {{ $prod->stock}}</td>
                             @else
+                            @if ($prod->stock==0)
+                            <td class="px-5 bg-red-500 text-gray-300">
+                                    {{ $prod->stock}}</td>
+
+                            @else
                                 <td class="px-5">{{ $prod->stock}}</td>
                             @endif
-
+                            @endif
 
                             <td class="px-5">
+                                @if ($prod->stock!=0)
+
+
                                 <button wire:click="seleccionP({{$prod->id}})"   id="boton" class="bg-green-500  hover:bg-green-700 text-white font-bold py-2 px-6 ">
                                     Seleccionar
                                 </button>
+                                 @endif
                             </td>
                         </tr>
                         @endforeach

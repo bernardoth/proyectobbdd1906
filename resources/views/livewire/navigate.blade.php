@@ -47,38 +47,40 @@
 
 
                 <div class="hidden sm:ml-6 sm:block">
-                    <div class="flex space-x-4 text-center">
+                    <div class="flex space-x-4 text-center ">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
 
-                        <a href="{{url('/dashboard')}}" class="bg-gray-700 text-gray-300  hover:bg-gray-500 hover:text-white w-24 mt-2 px-3 py-2 rounded-md text-sm font-medium"
+                        <a href="{{url('/dashboard')}}" class="bg-gray-700 text-orange-400 text-lg font-semibold  hover:bg-gray-500 hover:text-white w-24 mt-2 px-3 py-2 rounded-md  "
                             aria-current="page">Inicio</a>
                             @if (Auth::user()->cargo=='ADMIN')
-                            <a href="{{url('/user/users')}}" class="bg-gray-700 text-gray-300 hover:bg-gray-500 hover:text-white w-24 mt-2 px-3 py-2 rounded-md text-sm font-medium"
+                            <a href="{{url('/user/users')}}" class="bg-gray-700  text-orange-400 text-lg font-semibold hover:bg-gray-500 hover:text-white w-24 mt-2 px-3 py-2 rounded-md  "
                             aria-current="page">Usuarios</a>
                             @endif
 
                         <a href="{{ url('/cliente/clientes') }}"
-                            class="bg-gray-700 w-24 mt-2 text-center text-gray-300 hover:bg-gray-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            class="bg-gray-700 w-24 mt-2 text-center  text-orange-400 text-lg font-semibold hover:bg-gray-500 hover:text-white px-3 py-2 rounded-md  ">
                             Cliente
                         </a>
 
                         <a href="{{url('/producto/productos')}}"
-                            class="bg-gray-700 mt-2 text-gray-300 hover:bg-gray-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+                            class="bg-gray-700 mt-2  text-orange-400 text-lg font-semibold hover:bg-gray-500 hover:text-white px-3 py-2 rounded-md ">
                             Productos</a>
                             <a href="{{url('/categoria/categorias')}}"
-                            class=" bg-gray-700 text-gray-300 hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md text-sm font-medium">
+                            class=" bg-gray-700  text-orange-400 text-lg font-semibold hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md  ">
                             Categorias</a>
                         <a href="{{url('/proveedor/proveedors')}}"
-                            class="bg-gray-700 text-gray-300 hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md text-sm font-medium">
+                            class="bg-gray-700  text-orange-400 text-lg font-semibold hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md  ">
                             Proveedores</a>
                         <a href="{{url('/venta/ventas')}}"
-                            class=" bg-gray-700 text-gray-300 hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md text-sm font-medium">
+                            class=" bg-gray-700  text-orange-400 text-lg font-semibold hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md  ">
                             Ventas</a>
+                        @if (Auth::user()->cargo=='ADMIN')
+
 
                         <a href="{{url('/compra/compras')}}"
-                            class=" bg-gray-700 text-gray-300 hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md text-sm font-medium">
+                            class=" bg-gray-700  text-orange-400 text-lg font-semibold hover:bg-gray-500 hover:text-white mt-2 px-3 py-2 rounded-md  ">
                             Compras</a>
-
+                        @endif
                         <div class="ml-3 relative">
 
                                 <x-jet-dropdown align="right" width="48">
@@ -86,7 +88,7 @@
 
 
                                             <span class="inline-flex rounded-md">
-                                                <button type="button" class="bg-gray-700 hover:bg-gray-500 inline-flex items-center mt-2 px-3 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-white hover:text-white focus:outline-none transition">
+                                                <button type="button" class="bg-gray-700  text-orange-400 text-lg font-semibold hover:bg-gray-500 inline-flex items-center mt-2 px-3 py-3 border border-transparent  leading-4 font-medium rounded-md  hover:text-white focus:outline-none transition">
                                                     Reportes
                                                     <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -132,7 +134,7 @@
                                     <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
-                                <span class="inline-flex rounded-md">
+                                <span class="inline-flex rounded-md border-2 border-orange-400">
                                     <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-lg leading-4 font-medium rounded-md text-white bg-gray-900 hover:text-orange-500 focus:outline-none transition">
                                         {{ Auth::user()->name }}
 

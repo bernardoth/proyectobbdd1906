@@ -21,8 +21,10 @@
 
             </div>
             <div class="bg-slate-600 col-span-8 px-2 py-2">
-                <table class="bg-gray-700 py-2 text-gray-200 table-auto w-full pb-5 text-center">
-                    <thead class="bg-slate-800 h-10 border-2 border-slate-400">
+                <table class="bg-gray-700 py-2 text-gray-200 table-auto w-full pb-5 text-center
+                dark:bg-white dark:text-gray-900">
+                    <thead class="bg-slate-800 h-10 border-2 border-slate-400
+                    text-white">
                         <tr>
                             <th>Cod</th>
                             <th>Numero Doc</th>

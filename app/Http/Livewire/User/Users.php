@@ -12,8 +12,9 @@ class Users extends Component
 {
     use LivewireAlert;
     public $usuarios,$iduser,$name,$apellidopaterno,$apellidomaterno,$password,$cargo='',$email;
-    public $carnet,$celular,$direccion,$estado;
+    public $carnet,$celular,$direccion,$estado,$idc,$search;
     public $modal=0;
+    protected $listeners=['confirmed'];
 
     protected function rules()
     {
@@ -31,7 +32,9 @@ class Users extends Component
 
     public function render()
     {
-        $this->usuarios =User::where('estado','=','ACTIVO')->get();
+        $this->usuarios =User::where('estado','=','ACTIVO')
+        ->where('name','like','%'.$this->search.'%')
+        ->get();
         return view('livewire.user.users');
     }
     public function crear()

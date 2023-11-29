@@ -12,7 +12,7 @@
 </head>
 <body class="container bg-fixed mx-auto my-auto" style="background-image:url(imagenes/fondo.png)" bg-gray-800">
     <div >
-        <div class="mt-8 text-4xl text-center font-bold  text-orange-500">
+        <div class="mt-8 text-4xl text-center font-bold border-gray-600 text-orange-500">
             SISTEMA DE COMPRAS VENTAS E INVENTARIO
         </div>
         <div class="relative flex items-top justify-center h-2/3

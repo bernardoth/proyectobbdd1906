@@ -48,6 +48,7 @@ class Formulario extends Component
                 $v['precio'] = $preciolista;
                 //$v['subtotal'] = $cantidadlista * $preciolista;
                 $v['subtotal'] = number_format($cantidadlista * $preciolista,2,'.',' ');
+
                 array_push($this->lv,$v);
 
                 $v=[];

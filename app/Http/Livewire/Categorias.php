@@ -4,14 +4,17 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Categoria;
+use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Categorias extends Component
 {
     use LivewireAlert;
 
-    public $categorias,$search,$codigo,$nombre,$idcat;
+    public $categorias,$search,$codigo,$nombre,$idcat,$idc;
     public $modal=0;
+
+    protected $listeners=['confirmed'];
 
     protected $rules=[
         'codigo'=>'required',
@@ -43,8 +46,7 @@ class Categorias extends Component
 
         ]);
 
-        session()->flash('message',
-        $this->idcat ? '¡Actualización exitosa!' : '¡Alta Exitosa!');
+
 
         $this->alert('success', 'Datos guardados exitosamente .',[
             'toast'=>false,
@@ -66,11 +68,42 @@ class Categorias extends Component
     }
     public function borrar($id)
     {
-        Categoria::find($id)->delete();
-        $this->alert('warning', 'Categoria eliminada.',[
+        $this->idc=$id;
+        $this->alert('question','Esta por borrar el producto seleccioando '.$id,[
+            'toast'=>false,
+            'timer'=>4000,
+            'position'=>'center',
+            'showConfirmButton' => true,
+            'confirmButtonText' => 'Si, borrar',
+            'onConfirmed' => 'confirmed',
+            'showCancelButton' => true,
+            'cancelButtonText' => 'Cancelar',
+
+
+        ]);
+
+    }
+    public function confirmed()
+    {
+        try
+        {
+            Categoria::find($this->idc)->delete();
+            $this->alert('warning', 'Categoria eliminada.',[
             'toast'=>false,
             'position'=>'center'
         ]);
+        }
+        catch (Exception $e)
+        {
+            $this->alert('warning', 'La categoria no se pudo eliminar.',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+
+        }
+
+
+
     }
 
     public function abrirModal()

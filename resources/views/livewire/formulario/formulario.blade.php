@@ -76,7 +76,7 @@
                         class="w-full bg-gray-500" type="number"  min=1 max=9999999 name="cantidad" id="cantidad">
                     </div>
                     <div class="cols-span-1 text-gray-300">
-                        <label class="block " for="precioventa">Precio:  </label>
+                        <label class="block " for="precioventa">Precio venta:  </label>
                         <input wire:model="precioventa"
                         class="w-full bg-gray-500" type="number" readonly name="precioventa" id="precioventa">
                     </div>
@@ -109,8 +109,10 @@
 
                 <div class="col-span-8 text-white px-2 py-2 bg-gray-700">
                     Productos Seleccionados
-                    <table class="bg-gray-700 py-2 text-gray-200 table-auto w-full  pb-5 text-center">
-                        <thead class="bg-slate-800 h-10 border-2 border-slate-400">
+                    <table class="bg-gray-700 py-2 text-gray-200 table-auto w-full  pb-5 text-center
+                    dark:bg-white dark:text-gray-900">
+                        <thead class="bg-slate-800 h-10 border-2 border-slate-400
+                        dark:text-white">
                             <tr>
                                 <th>Item</th>
                                 <th>Descripcion</th>
@@ -203,7 +205,8 @@
                 if (  Number(cantidad.value)<=Number(stock.value)) {
 
                     let valor = cantidad.value * precio;
-                    subtotal.value =Number(valor.toFixed(3));
+                    subtotal.value =Number(valor.toFixed(1));
+                    //subtotal.value = valor;
                     //console.log('cambio change: '+valor);
                 }else{
                     Livewire.emit('nombre','stock');
@@ -327,8 +330,9 @@
         total:function(){
             this.suma = 0;
             this.prod.forEach(element => {
-                this.suma = this.suma + Number.parseFloat(element.subtotal);
+                this.suma = this.suma + Number.parseFloat(element.subtotal.replace(/\s/g,''));
             });
+            this.suma = this.suma.toFixed(2)
         },
         nuevoguardar:function () {
 

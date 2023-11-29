@@ -4,14 +4,17 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Persona;
+use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use PhpParser\Node\Stmt\TryCatch;
 
 class Proveedors extends Component
 {
     use LivewireAlert;
     public $listaProv,$search,$modal=0,$numeroDoc,$estado,$nombres,$apellidos,$correo,$direccion,$ci;
-    public $celular,$idprov,$tipo='prov';
+    public $celular,$idprov,$tipo='prov',$idc;
 
+    protected $listeners=['confirmed'];
     protected $rules=[
         'nombres'=>'required|min:2',
 
@@ -57,11 +60,41 @@ class Proveedors extends Component
     }
     public function borrar($id)
     {
-        Persona::find($id)->delete();
-        $this->alert('warning', 'Proveedor eliminado.',[
+        $this->idc=$id;
+        $this->alert('question','Esta por borrar el Provveedor seleccionado '.$id,[
+            'toast'=>false,
+            'timer'=>4000,
+            'position'=>'center',
+            'showConfirmButton' => true,
+            'confirmButtonText' => 'Si, borrar',
+            'onConfirmed' => 'confirmed',
+            'showCancelButton' => true,
+            'cancelButtonText' => 'Cancelar',
+
+
+        ]);
+    }
+    public function confirmed()
+    {
+        try
+        {
+            Persona::find($this->idc)->delete();
+
+            $this->alert('warning', 'Proveedor eliminado.',[
             'toast'=>false,
             'position'=>'center'
-        ]);
+            ]);
+
+        } catch (Exception $e) {
+            $this->alert('warning', 'No se puede eliminar al proveedor.',[
+                'toast'=>false,
+                'position'=>'center'
+                ]);
+        }
+
+
+
+
     }
 
 

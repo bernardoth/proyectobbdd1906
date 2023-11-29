@@ -6,13 +6,16 @@ use Livewire\Component;
 use App\Models\Movimiento;
 use App\Models\Producto;
 use Carbon\Carbon;
+use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Compras extends Component
 {
     use LivewireAlert;
     public $listaCompras,$search,$estado;
-    public $fecha;
+    public $fecha,$idc;
+
+    protected $listeners=['confirmed'];
 
     public function mount()
     {
@@ -40,7 +43,27 @@ class Compras extends Component
     }
     public function eliminar($id)
     {
-        $v=Movimiento::find($id);
+        $this->idc=$id;
+        $this->alert('question','Esta por borrar la compra seleccioanda '.$id,[
+            'toast'=>false,
+            'timer'=>4000,
+            'position'=>'center',
+            'showConfirmButton' => true,
+            'confirmButtonText' => 'Si, borrar',
+            'onConfirmed' => 'confirmed',
+            'showCancelButton' => true,
+            'cancelButtonText' => 'Cancelar',
+
+
+        ]);
+
+    }
+
+    public function confirmed()
+    {
+        try
+        {
+            $v=Movimiento::find($this->idc);
         $items = $v->productos;
         foreach ($items as $item)
         {
@@ -49,19 +72,31 @@ class Compras extends Component
             Producto::updateOrCreate(['id'=>$item->id],
                     [
 
-                        'salida'=>$in-$item->pivot->cantidad,
+                        'entrada'=>$in-$item->pivot->cantidad,
 
                     ]);
 
         }
 
-        $this->alert('warning', 'Compra eliminada.'.$item->cantidad,[
-            'toast'=>false,
-            'position'=>'center'
-        ]);
-        $v->productos()->detach();
 
-        $v->delete();
+            $v->productos()->detach();
+
+            $v->delete();
+            $this->alert('warning', 'Compra eliminada.',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+
+        }
+        catch (Exception  $e)
+        {
+            $this->alert('warning', 'La Compra no se pudo eliminar.',[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+
+        }
+
     }
 
 }

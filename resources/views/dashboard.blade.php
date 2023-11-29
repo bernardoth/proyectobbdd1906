@@ -3,7 +3,8 @@
 
 
     <div class="py-12">
-        <div class ="text-orange-500 text-5xl text-center mb-8">
+        <div class ="text-orange-500 text-5xl border-4 border-orange-500 bg-gray-800 py-3 px-4
+        mx-56 rounded-lg text-center mb-8">
             Sistema de Ventas Compras e Inventario</div>
         <div class="max-w-7xl mx-auto grid grid-cols-3 gap-5 sm:px-6 lg:px-8">
             <div>

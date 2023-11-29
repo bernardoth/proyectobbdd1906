@@ -49,6 +49,7 @@ class Formularioc extends Component
                 $v['precio'] = $preciolista;
                 //$v['subtotal'] = $cantidadlista * $preciolista;
                 $v['subtotal'] = number_format($cantidadlista * $preciolista,2,'.',' ');
+                //$v['subtotal'] = $cantidadlista * $preciolista;
                 array_push($this->lv,$v);
 
                 $v=[];
@@ -200,6 +201,21 @@ class Formularioc extends Component
             foreach ($m as $elem)
             {
                 //insercion de productos
+                /*
+                if ($elem->id=='')
+                {
+                    //crea nuevo producto
+                    Producto::updateOrCreate(['id'=>$this->idprod],
+                    [
+                        //'codigo'=>$this->codigo,
+                        'descripcion'=>$this->descripcion,
+                        'preciocompra'=>$elem->preciocompra,
+                        'stockinicial'=>$elem->cantidad,
+                        'estado'=>'ACTIVO',
+                        'cant_min'=>$elem->cantidad,
+                        'categoria_id'=>$this->categoria_id
+                    ]);
+                }*/
 
                 $v->productos()->attach(
                     $elem->id,

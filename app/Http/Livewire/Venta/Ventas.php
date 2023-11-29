@@ -9,14 +9,17 @@ use App\Models\Producto;
 use App\Models\User;
 use App\Models\Movimiento;
 use Carbon\Carbon;
+use Exception;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Ventas extends Component
 {
     use LivewireAlert;
     use WithPagination;
-    public $listaVentas,$listaClientes,$nuevaVenta,$usuario;
+    public $listaVentas,$listaClientes,$nuevaVenta,$usuario,$idc;
     public $selectClie,$valor,$search='',$fecha='',$tipo='PROFORMA';
+
+    protected $listeners=['confirmed'];
 
     public function mount()
     {
@@ -52,8 +55,29 @@ class Ventas extends Component
 
     public function eliminar($id)
     {
+        $this->idc=$id;
+        $this->alert('question','Esta por borrar la venta/prof '.$id,[
+            'toast'=>false,
+            'timer'=>4000,
+            'position'=>'center',
+            'showConfirmButton' => true,
+            'confirmButtonText' => 'Si, borrar',
+            'onConfirmed' => 'confirmed',
+            'showCancelButton' => true,
+            'cancelButtonText' => 'Cancelar',
 
-        $v=Movimiento::find($id);
+
+        ]);
+
+
+    }
+    public function confirmed()
+    {
+
+
+        try
+        {
+        $v=Movimiento::find($this->idc);
         //
         $items = $v->productos;
         foreach ($items as $item)
@@ -72,9 +96,18 @@ class Ventas extends Component
         $v->productos()->detach();
         $v->delete();
 
-        $this->alert('warning', 'Venta eliminada.'.$item->cantidad,[
+        $this->alert('warning', 'Venta eliminada.',[
             'toast'=>false,
             'position'=>'center'
         ]);
+        }
+        catch(Exception $e)
+        {
+            $this->alert('warning', 'Venta no se elimino.'.$item->cantidad,[
+                'toast'=>false,
+                'position'=>'center'
+            ]);
+        }
+
     }
 }
